@@ -159,7 +159,7 @@ namespace KMS1_Books_Arbab
             slave.WorkerReportsProgress = true;
             slave.DoWork += Slave_DoWork;
             slave.ProgressChanged += Slave_OnProgressChanged;
-            slave.RunWorkerAsync();
+            slave.RunWorkerAsync(progressBar);
             int count = listb.Count;
             int matches = 0;
             foreach (var phrase in listb)
@@ -170,7 +170,7 @@ namespace KMS1_Books_Arbab
              return  (double)matches / (double)count;
         }
 
-        public void Slave_DoWork(object sender, DoWorkEventArgs e)
+        private void Slave_DoWork(object sender, DoWorkEventArgs e)
         {
             var slave = sender as BackgroundWorker;
             slave?.ReportProgress(0);
@@ -178,9 +178,10 @@ namespace KMS1_Books_Arbab
             {
                 slave?.ReportProgress(i);
             }
+            slave?.ReportProgress(100, "Done iterating");
         }
 
-
+      
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
