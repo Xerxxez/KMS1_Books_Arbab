@@ -42,7 +42,7 @@
         <TextBox x:Name="pathBookTwo" HorizontalAlignment="Left" Margin="442,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="18"/>
 
         <!-- middle section-->
-        <TextBlock x:Name="progressBarString" Height="20" Margin="284,299,446,100"/>
+        <TextBlock Panel.ZIndex="5" x:Name="progressBarString" Margin="447,322,203,51"/>
         <ProgressBar x:Name="progressBar" Value="{Binding WorkerState}" Minimum="0" Maximum="100" HorizontalAlignment="Left" Height="10" Margin="337,330,0,0" VerticalAlignment="Top" Width="100" />
         <Label Content="Word Count" HorizontalAlignment="Left" Margin="354,104,0,0" VerticalAlignment="Top"/>
         <Label Content="Line Count" HorizontalAlignment="Left" Margin="358,64,0,0" VerticalAlignment="Top"/>

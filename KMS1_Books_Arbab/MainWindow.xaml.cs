@@ -35,7 +35,7 @@ namespace KMS1_Books_Arbab
         {
 
             progressBar.Value = e.ProgressPercentage;
-            progressBarString.Text = e.ProgressPercentage.ToString();
+            progressBarString.Text = e.ProgressPercentage.ToString()+"%";
            
         }
         private void UploadButtonOne_Click(object sender, RoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace KMS1_Books_Arbab
                     dataGridBookContentBookOne.DataContext = File.ReadAllText(path);
                    
                     txtCountWordsBookOne.Text = Regex.
-                         Split(File.ReadAllText(path), @"[^0-9a-zA-Z]", RegexOptions.IgnorePatternWhitespace)//splitby regex all words
+                         Split(File.ReadAllText(path), @"[^0-9a-zA-Z]", RegexOptions.IgnorePatternWhitespace)//splitby regex all words ignore spaces
                          .Count()
                          .ToString();
                     txtCountLinesBookOne.Text = File.ReadAllLines(path)
@@ -81,7 +81,7 @@ namespace KMS1_Books_Arbab
                     pathBookTwo.Text = path;
                     dataGridBookContentBookTwo.DataContext = File.ReadAllText(openFileDialog.FileName);
                     txtCountWordsBookTwo.Text = Regex.
-                         Split(File.ReadAllText(path), @"[^0-9a-zA-Z]", RegexOptions.IgnorePatternWhitespace)//splitby regex all words ignore spaces
+                         Split(File.ReadAllText(path), @"[^0-9a-zA-Z]", RegexOptions.IgnorePatternWhitespace)
                          .Count()
                          .ToString();
                     txtCountLinesBookTwo.Text = File.ReadAllLines(path)
@@ -106,7 +106,7 @@ namespace KMS1_Books_Arbab
             try {
                 var orderedWords = rawText
                 .Split(delimiter, StringSplitOptions.RemoveEmptyEntries) //uses array of delimiters to separate
-                 .GroupBy(x=>x) 
+                .GroupBy(x=>x) 
                 .Select(x => new
                 {
                     Word = x.Key,
