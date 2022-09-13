@@ -147,7 +147,10 @@ namespace KMS1_Books_Arbab
                 {
                     x.Key,
                 }).ToList();
-                match.Text = MatchesMalone(bookOneSeparated, bookTwoSeparated).ToString("P",CultureInfo.InvariantCulture);
+
+                if(bookOneSeparated.Count > bookTwoSeparated.Count) match.Text = MatchesMalone(bookOneSeparated, bookTwoSeparated).ToString("P", CultureInfo.InvariantCulture);
+                if (bookOneSeparated.Count < bookTwoSeparated.Count) match.Text = MatchesMalone( bookTwoSeparated, bookOneSeparated).ToString("P", CultureInfo.InvariantCulture);
+
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
