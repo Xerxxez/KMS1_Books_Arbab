@@ -102,19 +102,28 @@ namespace KMS1_Books_Arbab
 
         }
         public void ExportText(string bookText,string fileName)
+
         {
-            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, fileName+".txt")))
+            try
             {
-                int i = 0;
-                foreach (var line in bookText)
+                string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, fileName + ".txt")))
                 {
-                    outputFile.WriteLine(line.ToString() + " " + bookText[i] + " " + i);
-                    i++;
+                    int i = 0;
+                    foreach (var line in bookText)
+                    {
+                        outputFile.WriteLine(line.ToString() + " " + bookText[i] + " " + i);
+                        i++;
+                    }
+
                 }
-           
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         private void CountWordsInBook(string content, bool dataGridSide)
