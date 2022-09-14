@@ -6,10 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
-using System.Windows.Shapes;
 using File = System.IO.File;
 using Path = System.IO.Path;
 
@@ -48,6 +45,7 @@ namespace KMS1_Books_Arbab
                     openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
                     string path = pathBookOne.Text = openFileDialog.FileName;                                                 
                     string bookText = File.ReadAllText(path);
+
                     dataGridBookContentBookOne.DataContext = bookText;
                     txtCountWordsBookOne.Text = bookText
                          .Split(" ", StringSplitOptions.RemoveEmptyEntries)
@@ -86,7 +84,7 @@ namespace KMS1_Books_Arbab
                          .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                          .Count()
                          .ToString();
-                    ExportText(bookText,"BookTwo");
+                    ExportText(bookText,"Book Two");
 
                     txtCountLinesBookTwo.Text = File.ReadAllLines(path)
                         .Count()
