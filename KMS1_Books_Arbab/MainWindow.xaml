@@ -12,34 +12,34 @@
         <Button x:Name ="btnUploadBookOne" HorizontalAlignment="Left" Margin="39,54,0,0" VerticalAlignment="Top" Height="48" Width="130">
             <Button Content="Upload Book" Click="UploadButtonOne_Click" Height="48" Width="130"/>
         </Button>
-        <TextBox x:Name="pathBookOne" Margin="10,10,459,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="pathBookOne" Margin="10,10,459,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
 
-        <DataGrid x:Name="dataGridBookContentBookOne" HorizontalAlignment="Left" Margin="104,140,0,0" VerticalAlignment="Top" AutoGenerateColumns="False" Height="200" Width="200">
+        <DataGrid x:Name="dataGridBookContentBookOne" HorizontalAlignment="Left" Margin="104,140,0,0" VerticalAlignment="Top" AutoGenerateColumns="False" Height="200" Width="200" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="85" Header="Word" Binding="{Binding Word}" />
-                <DataGridTextColumn Width="85" Header="Count" Binding="{Binding Count}" />
+                <DataGridTextColumn Width="85" Header="Word" Binding="{Binding Word}" IsReadOnly="True" />
+                <DataGridTextColumn Width="85" Header="Count" Binding="{Binding Count}" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <TextBox x:Name="txtCountWordsBookOne" HorizontalAlignment="Left" Margin="208,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Text=""/>
-        <TextBox x:Name="txtCountLinesBookOne" HorizontalAlignment="Left" Margin="208,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" />
+        <TextBox x:Name="txtCountWordsBookOne" HorizontalAlignment="Left" Margin="208,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" Text="" IsReadOnly="True"/>
+        <TextBox x:Name="txtCountLinesBookOne" HorizontalAlignment="Left" Margin="208,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133" IsReadOnly="True"/>
 
 
         <!-- Book2-->
-        <TextBox x:Name="txtCountLinesBookTwo" HorizontalAlignment="Left" Margin="442,64,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="133" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox x:Name="txtCountLinesBookTwo" HorizontalAlignment="Left" Margin="442,64,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="133" RenderTransformOrigin="0.5,0.5" IsReadOnly="True"/>
         <Button x:Name ="btnUploadBooKTwo" HorizontalAlignment="Left" Margin="612,47,0,0" VerticalAlignment="Top" Height="48" Width="130">
             <Button Content="Upload Book" Click="UploadButtonTwo_Click" Height="48" Width="130"/>
         </Button>
-        <TextBox x:Name="txtCountWordsBookTwo" Margin="442,108,225,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="133" Height="18" RenderTransformOrigin="0.538,-0.012"/>
+        <TextBox x:Name="txtCountWordsBookTwo" Margin="442,108,225,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="133" Height="18" RenderTransformOrigin="0.538,-0.012" IsReadOnly="True"/>
         <DataGrid x:Name="dataGridBookContentBookTwo" AutoGenerateColumns="False" HorizontalAlignment="Left" Margin="508,140,0,0"  VerticalAlignment="Top" Height="200" Width="200">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Word" Width="85" Binding="{Binding Word}" >
+                <DataGridTextColumn Header="Word" Width="85" Binding="{Binding Word}" IsReadOnly="True" >
 
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Count" Width="85" Binding="{Binding Count}" />
+                <DataGridTextColumn Header="Count" Width="85" Binding="{Binding Count}" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
-        <TextBox x:Name="pathBookTwo" HorizontalAlignment="Left" Margin="442,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="18"/>
+        <TextBox x:Name="pathBookTwo" HorizontalAlignment="Left" Margin="442,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="348" Height="18" IsReadOnly="True"/>
 
         <!-- middle section-->
         <TextBlock Panel.ZIndex="5" x:Name="progressBarString" Margin="447,322,203,51"/>
@@ -48,7 +48,7 @@
         <Label Content="Line Count" HorizontalAlignment="Left" Margin="358,64,0,0" VerticalAlignment="Top"/>
         <Label Content="Paths" HorizontalAlignment="Left" Margin="373,6,0,0" VerticalAlignment="Top"/>
         <Button Content="Save" HorizontalAlignment="Left" Margin="359,297,0,0" VerticalAlignment="Top" Width="66" Click="SaveButton_Click"/>
-        <TextBox x:Name="match" HorizontalAlignment="Left" Margin="327,345,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" />
+        <TextBox x:Name="match" HorizontalAlignment="Left" Margin="327,345,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"  IsReadOnly="True" />
         <Button x:Name="btnCompare" Content="Compare" HorizontalAlignment="Left" Margin="270,343,0,0" VerticalAlignment="Top" Click="CompareBooks" Height="21"/>
     </Grid>
 </Window>
