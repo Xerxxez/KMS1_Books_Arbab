@@ -173,7 +173,7 @@ namespace KMS1_Books_Arbab
 
                 if(bookOneSeparated.Count > bookTwoSeparated.Count) 
                 {
-                    match.Text = MatchesInBooks(bookOneSeparated, bookTwoSeparated).ToString("P", CultureInfo.InvariantCulture)
+                    match.Text = MatchesInBooks(bookOneSeparated, bookTwoSeparated).ToString("P", CultureInfo.InvariantCulture);
                 }
                 else
                 {
