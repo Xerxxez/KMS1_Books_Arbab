@@ -50,8 +50,7 @@ namespace KMS1_Books_Arbab
                     string path = openFileDialog.FileName;           
                     pathBookOne.Text = path;                          
                     string bookText = File.ReadAllText(path);
-                    dataGridBookContentBookOne.DataContext = File.ReadAllText(path);
-                   
+                    dataGridBookContentBookOne.DataContext = bookText;
                     txtCountWordsBookOne.Text = bookText
                          .Split(' ', StringSplitOptions.RemoveEmptyEntries)//splitby regex all words ignore spaces
                          .Count()
@@ -81,12 +80,12 @@ namespace KMS1_Books_Arbab
                 if (openFileDialog.ShowDialog() == true)
                 {
                     openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-                   
                     string path = openFileDialog.FileName;
                     string bookText = File.ReadAllText(path);
                     pathBookTwo.Text = path;
-
-                    dataGridBookContentBookTwo.DataContext = File.ReadAllText(openFileDialog.FileName);
+                 
+                    dataGridBookContentBookTwo.DataContext = bookText;
+     
                     txtCountWordsBookTwo.Text = bookText
                          .Split(' ', StringSplitOptions.RemoveEmptyEntries)
                          .Count()
