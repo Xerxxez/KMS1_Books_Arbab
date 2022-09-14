@@ -171,8 +171,14 @@ namespace KMS1_Books_Arbab
                     x.Key,
                 }).ToList();
 
-                if(bookOneSeparated.Count > bookTwoSeparated.Count) match.Text = MatchesInBooks(bookOneSeparated, bookTwoSeparated).ToString("P", CultureInfo.InvariantCulture);
-                if(bookOneSeparated.Count < bookTwoSeparated.Count) match.Text = MatchesInBooks(bookTwoSeparated, bookOneSeparated).ToString("P", CultureInfo.InvariantCulture);
+                if(bookOneSeparated.Count > bookTwoSeparated.Count) 
+                {
+                    match.Text = MatchesInBooks(bookOneSeparated, bookTwoSeparated).ToString("P", CultureInfo.InvariantCulture)
+                }
+                else
+                {
+                    match.Text = MatchesInBooks(bookTwoSeparated, bookOneSeparated).ToString("P", CultureInfo.InvariantCulture);
+                } 
 
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
