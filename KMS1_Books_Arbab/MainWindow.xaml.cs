@@ -23,13 +23,12 @@ namespace KMS1_Books_Arbab
         public MainWindow()
         {
             InitializeComponent();
-       
         }
 
 
         OpenFileDialog openFileDialog = new OpenFileDialog();
         StringBuilder stringBuilder = new StringBuilder();
-        SaveFileDialog save = new SaveFileDialog();
+        SaveFileDialog saveFileDialog = new SaveFileDialog();
         char[] delimiter = new char[] { '\0', '\f', '\v','\r', ' ', ',', ':', '\t', '\"', '\n', '{', '}', '[', ']', '=', '/', '-' };
 
 
@@ -188,7 +187,7 @@ namespace KMS1_Books_Arbab
             slave.DoWork += Slave_DoWork;
             slave.ProgressChanged += Slave_OnProgressChanged;
             slave.RunWorkerAsync(progressBar);
-            int count = listBookB.Count;
+            int listBookBSize = listBookB.Count;
             int matches = 0;
             foreach (var phrase in listBookB)
             {
@@ -196,7 +195,7 @@ namespace KMS1_Books_Arbab
                     matches++;
                 
             }
-             return  (double)matches / (double)count;
+             return  (double)matches / (double)listBookBSize;
         }
 
         private void Slave_DoWork(object sender, DoWorkEventArgs e)
@@ -219,9 +218,9 @@ namespace KMS1_Books_Arbab
             {
                 if(match.Text != "")
                 {
-                    save.Filter = "Text files|*.txt;|All files|*.*";
-                    save.ShowDialog();
-                    StreamWriter write = new StreamWriter(save.FileName);
+                    saveFileDialog.Filter = "Text files|*.txt;|All files|*.*";
+                    saveFileDialog.ShowDialog();
+                    StreamWriter write = new StreamWriter(saveFileDialog.FileName);
                     string[] pathSplittedOne = pathBookOne.Text.Split(@"\");
                     string bookNameOne = pathSplittedOne[^1];//last index of array is file name
                     string[] pathSplittedTwo = pathBookTwo.Text.Split(@"\");
