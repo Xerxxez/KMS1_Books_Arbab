@@ -9,7 +9,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
+using System.Windows.Shapes;
 using File = System.IO.File;
+using Path = System.IO.Path;
 
 namespace KMS1_Books_Arbab
 {
@@ -26,7 +28,7 @@ namespace KMS1_Books_Arbab
 
 
         OpenFileDialog openFileDialog = new OpenFileDialog();
-        StringBuilder sb = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         SaveFileDialog save = new SaveFileDialog();
         char[] delimiter = new char[] { '\0', '\f', '\v','\r', ' ', ',', ':', '\t', '\"', '\n', '{', '}', '[', ']', '=', '/', '-' };
 
@@ -50,10 +52,13 @@ namespace KMS1_Books_Arbab
                     string bookText = File.ReadAllText(path);
                     dataGridBookContentBookOne.DataContext = File.ReadAllText(path);
                    
-                    txtCountWordsBookOne.Text = Regex.
-                         Split(File.ReadAllText(path), @"[^0-9a-zA-Z]", RegexOptions.IgnorePatternWhitespace)//splitby regex all words ignore spaces
+                    txtCountWordsBookOne.Text = bookText
+                         .Split(' ', StringSplitOptions.RemoveEmptyEntries)//splitby regex all words ignore spaces
                          .Count()
                          .ToString();
+
+                    ExportText(bookText,"Book One");
+
                     txtCountLinesBookOne.Text = File.ReadAllLines(path)
                         .Count()
                         .ToString();
@@ -76,14 +81,18 @@ namespace KMS1_Books_Arbab
                 if (openFileDialog.ShowDialog() == true)
                 {
                     openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+                   
                     string path = openFileDialog.FileName;
-        
+                    string bookText = File.ReadAllText(path);
                     pathBookTwo.Text = path;
+
                     dataGridBookContentBookTwo.DataContext = File.ReadAllText(openFileDialog.FileName);
-                    txtCountWordsBookTwo.Text = Regex.
-                         Split(File.ReadAllText(path), @"[^0-9a-zA-Z]", RegexOptions.IgnorePatternWhitespace)
+                    txtCountWordsBookTwo.Text = bookText
+                         .Split(' ', StringSplitOptions.RemoveEmptyEntries)
                          .Count()
                          .ToString();
+                    ExportText(bookText,"BookTwo");
+
                     txtCountLinesBookTwo.Text = File.ReadAllLines(path)
                         .Count()
                         .ToString();
@@ -97,8 +106,21 @@ namespace KMS1_Books_Arbab
             }
 
         }
-
-
+        public void ExportText(string bookText,string fileName)
+        {
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, fileName+".txt")))
+            {
+                int i = 0;
+                foreach (var line in bookText)
+                {
+                    outputFile.WriteLine(line.ToString() + " " + bookText[i] + " " + i);
+                    i++;
+                }
+           
+            }
+        }
 
         private void CountWordsInBook(string content, bool dataGridSide)
         {
@@ -138,37 +160,39 @@ namespace KMS1_Books_Arbab
             {
                 string bookOneUnseparated = File.ReadAllText(pathBookOne.Text);
                 string bookTwoUnseparated = File.ReadAllText(pathBookTwo.Text);
-                var bookOneSeparated = bookOneUnseparated.Split(delimiter,StringSplitOptions.RemoveEmptyEntries).GroupBy(x => x)
-                        .Select(x => new
+                var bookOneSeparated = bookOneUnseparated.Split(delimiter,StringSplitOptions.RemoveEmptyEntries)
+                    .GroupBy(x => x).Select(x => new
                         {
                             x.Key,
                         }).ToList();
-                var bookTwoSeparated = bookTwoUnseparated.Split(delimiter, StringSplitOptions.RemoveEmptyEntries).GroupBy(x => x).Select(x => new
+                var bookTwoSeparated = bookTwoUnseparated.Split(delimiter, StringSplitOptions.RemoveEmptyEntries)
+                    .GroupBy(x => x).Select(x => new
                 {
                     x.Key,
                 }).ToList();
 
-                if(bookOneSeparated.Count > bookTwoSeparated.Count) match.Text = MatchesMalone(bookOneSeparated, bookTwoSeparated).ToString("P", CultureInfo.InvariantCulture);
-                if (bookOneSeparated.Count < bookTwoSeparated.Count) match.Text = MatchesMalone( bookTwoSeparated, bookOneSeparated).ToString("P", CultureInfo.InvariantCulture);
+                if(bookOneSeparated.Count > bookTwoSeparated.Count) match.Text = MatchesInBooks(bookOneSeparated, bookTwoSeparated).ToString("P", CultureInfo.InvariantCulture);
+                if(bookOneSeparated.Count < bookTwoSeparated.Count) match.Text = MatchesInBooks(bookTwoSeparated, bookOneSeparated).ToString("P", CultureInfo.InvariantCulture);
 
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
 
-        public double MatchesMalone<T>(List<T> lista, List<T> listb)
+        public double MatchesInBooks<T>(List<T> listBookA, List<T> listBookB)
         {
            
             slave.WorkerReportsProgress = true;
             slave.DoWork += Slave_DoWork;
             slave.ProgressChanged += Slave_OnProgressChanged;
             slave.RunWorkerAsync(progressBar);
-            int count = listb.Count;
+            int count = listBookB.Count;
             int matches = 0;
-            foreach (var phrase in listb)
+            foreach (var phrase in listBookB)
             {
-                if (lista.Contains(phrase))
+                if (listBookA.Contains(phrase))
                     matches++;
+                
             }
              return  (double)matches / (double)count;
         }
@@ -200,13 +224,13 @@ namespace KMS1_Books_Arbab
                     string bookNameOne = pathSplittedOne[^1];//last index of array is file name
                     string[] pathSplittedTwo = pathBookTwo.Text.Split(@"\");
                     string bookNameTwo = pathSplittedTwo[^1];
-                    sb.Append($"Book 1:  {bookNameOne}\nBook 2:  {bookNameTwo} \nBook one matches book two in " + match.Text);
-                    write.WriteLine(sb.ToString());
+                    stringBuilder.Append($"Book 1:  {bookNameOne}\nBook 2:  {bookNameTwo} \nBook one matches book two in " + match.Text);
+                    write.WriteLine(stringBuilder.ToString());
                     write.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Please Compare first!");
+                    MessageBox.Show("Please compare first!");
                 }
              
             }
