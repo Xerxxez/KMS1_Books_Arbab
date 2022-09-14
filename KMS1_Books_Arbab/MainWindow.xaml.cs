@@ -47,12 +47,11 @@ namespace KMS1_Books_Arbab
                 if (openFileDialog.ShowDialog() == true)
                 {
                     openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-                    string path = openFileDialog.FileName;           
-                    pathBookOne.Text = path;                          
+                    string path = pathBookOne.Text = openFileDialog.FileName;                                                 
                     string bookText = File.ReadAllText(path);
                     dataGridBookContentBookOne.DataContext = bookText;
                     txtCountWordsBookOne.Text = bookText
-                         .Split(' ', StringSplitOptions.RemoveEmptyEntries)//splitby regex all words ignore spaces
+                         .Split(" ", StringSplitOptions.RemoveEmptyEntries)//splitby regex all words ignore spaces
                          .Count()
                          .ToString();
 
@@ -80,14 +79,11 @@ namespace KMS1_Books_Arbab
                 if (openFileDialog.ShowDialog() == true)
                 {
                     openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-                    string path = openFileDialog.FileName;
-                    string bookText = File.ReadAllText(path);
-                    pathBookTwo.Text = path;
-                 
+                    string path = pathBookTwo.Text = openFileDialog.FileName;
+                    string bookText = File.ReadAllText(path);                            
                     dataGridBookContentBookTwo.DataContext = bookText;
-     
                     txtCountWordsBookTwo.Text = bookText
-                         .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                         .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                          .Count()
                          .ToString();
                     ExportText(bookText,"BookTwo");
